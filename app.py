@@ -25,42 +25,57 @@ DATASET_URL = (
 
 
 def ensure_dataset():
-    """Download and extract UCI HAR if the test data is missing."""
+    """Download and extract the nested UCI HAR dataset archives."""
     required_file = ROOT / "test" / "X_test.txt"
 
-    if required_file.exists():
+    if required_file.is_file():
         return
 
     DATA_DIR.mkdir(parents=True, exist_ok=True)
-    zip_path = DATA_DIR / "uci_har_dataset.zip"
+    outer_zip = DATA_DIR / "uci_har_dataset.zip"
+    inner_zip = DATA_DIR / "UCI HAR Dataset.zip"
+
+    def safe_extract(archive, destination):
+        destination = destination.resolve()
+
+        for member in archive.infolist():
+            target = (destination / member.filename).resolve()
+            if not target.is_relative_to(destination):
+                raise ValueError(
+                    "Unsafe path found in dataset archive."
+                )
+
+        archive.extractall(destination)
 
     try:
         with st.spinner("Downloading the UCI HAR dataset..."):
-            urllib.request.urlretrieve(DATASET_URL, zip_path)
+            urllib.request.urlretrieve(DATASET_URL, outer_zip)
 
         with st.spinner("Extracting the UCI HAR dataset..."):
-            with zipfile.ZipFile(zip_path, "r") as archive:
-                # Reject unexpected paths before extracting.
-                for member in archive.infolist():
-                    target = (DATA_DIR / member.filename).resolve()
-                    if not target.is_relative_to(DATA_DIR.resolve()):
-                        raise ValueError("Unsafe path found in dataset archive.")
+            with zipfile.ZipFile(outer_zip, "r") as archive:
+                safe_extract(archive, DATA_DIR)
 
-                archive.extractall(DATA_DIR)
+            if not inner_zip.is_file():
+                raise FileNotFoundError(
+                    f"Nested dataset archive not found: {inner_zip}"
+                )
 
-        if not required_file.exists():
+            with zipfile.ZipFile(inner_zip, "r") as archive:
+                safe_extract(archive, DATA_DIR)
+
+        if not required_file.is_file():
             raise FileNotFoundError(
-                f"Dataset extracted, but expected file is missing: {required_file}"
+                f"Expected test file not found: {required_file}"
             )
 
     except Exception as exc:
-        st.error(f"Could not download or prepare the UCI HAR dataset: {exc}")
+        st.error(f"Could not prepare the UCI HAR dataset: {exc}")
         st.stop()
 
     finally:
-        if zip_path.exists():
-            zip_path.unlink()
-
+        for archive_path in (outer_zip, inner_zip):
+            if archive_path.exists():
+                archive_path.unlink()
 ACTIVITIES = {
     1: "Walking",
     2: "Walking upstairs",
