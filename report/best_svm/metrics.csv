@@ -1,0 +1,2 @@
+model,accuracy,balanced_accuracy,macro_f1,test_samples
+RBF SVM (grouped-CV selected),0.9531727180183237,0.9515798908095475,0.9524841382836602,2947

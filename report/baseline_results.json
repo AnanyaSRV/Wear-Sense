@@ -1,0 +1,12 @@
+{
+    "dummy": {
+        "accuracy": 0.18221920597217509,
+        "macro_f1": 0.05137772675086108,
+        "inference_seconds": 0.0007459000007656869
+    },
+    "logistic_regression": {
+        "accuracy": 0.9545300305395318,
+        "macro_f1": 0.9542884516340182,
+        "inference_seconds": 0.023382499999570427
+    }
+}

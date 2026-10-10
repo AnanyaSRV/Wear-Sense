@@ -1,0 +1,14 @@
+model,parameters,mean_macro_f1,std_macro_f1
+Logistic Regression,{'model__C': 10.0},0.9269288651561279,0.03313659263654407
+Logistic Regression,{'model__C': 3.0},0.9262232589136739,0.03524201410286418
+Logistic Regression,{'model__C': 1.0},0.9261601969824435,0.035209351400564075
+Logistic Regression,{'model__C': 0.1},0.9244565748908021,0.03557993405655204
+RBF SVM,"{'model__C': 3.0, 'model__gamma': 0.001}",0.9282762925895114,0.024106048797745718
+RBF SVM,"{'model__C': 10.0, 'model__gamma': 0.001}",0.9273427422428598,0.022824478520309263
+RBF SVM,"{'model__C': 1.0, 'model__gamma': 0.001}",0.9252758589222354,0.024716919738859214
+RBF SVM,"{'model__C': 10.0, 'model__gamma': 'scale'}",0.923712755565164,0.02282624689457036
+RBF SVM,"{'model__C': 1.0, 'model__gamma': 'scale'}",0.9235342798192727,0.022992029517674536
+RBF SVM,"{'model__C': 3.0, 'model__gamma': 'scale'}",0.9232903544068142,0.023397166359270482
+RBF SVM,"{'model__C': 3.0, 'model__gamma': 0.01}",0.8439490073840561,0.03941589595945977
+RBF SVM,"{'model__C': 10.0, 'model__gamma': 0.01}",0.843635279349187,0.03923024250423013
+RBF SVM,"{'model__C': 1.0, 'model__gamma': 0.01}",0.8412505681279067,0.0388574678320615

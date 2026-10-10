@@ -1,0 +1,55 @@
+subject,actual_activity,samples,correct,errors,accuracy
+10,Sitting,54,35,19,0.6481481481481481
+20,Walking downstairs,45,30,15,0.6666666666666666
+9,Standing,45,34,11,0.7555555555555555
+9,Sitting,50,39,11,0.78
+18,Walking downstairs,55,45,10,0.8181818181818182
+12,Sitting,51,42,9,0.8235294117647058
+9,Walking upstairs,49,41,8,0.8367346938775511
+2,Sitting,46,39,7,0.8478260869565217
+20,Walking,51,44,7,0.8627450980392157
+10,Walking upstairs,47,41,6,0.8723404255319149
+13,Walking downstairs,47,41,6,0.8723404255319149
+4,Sitting,50,46,4,0.92
+4,Standing,56,52,4,0.9285714285714286
+20,Sitting,66,62,4,0.9393939393939394
+4,Walking upstairs,52,50,2,0.9615384615384616
+10,Walking,53,51,2,0.9622641509433962
+24,Sitting,68,66,2,0.9705882352941176
+10,Standing,44,43,1,0.9772727272727273
+12,Walking,50,49,1,0.98
+12,Walking upstairs,52,51,1,0.9807692307692307
+18,Sitting,57,56,1,0.9824561403508771
+20,Standing,73,72,1,0.9863013698630136
+2,Laying,48,48,0,1.0
+2,Standing,54,54,0,1.0
+2,Walking,59,59,0,1.0
+2,Walking downstairs,47,47,0,1.0
+2,Walking upstairs,48,48,0,1.0
+4,Laying,54,54,0,1.0
+4,Walking,60,60,0,1.0
+4,Walking downstairs,45,45,0,1.0
+9,Laying,50,50,0,1.0
+9,Walking,52,52,0,1.0
+9,Walking downstairs,42,42,0,1.0
+10,Laying,58,58,0,1.0
+10,Walking downstairs,38,38,0,1.0
+12,Laying,60,60,0,1.0
+12,Standing,61,61,0,1.0
+12,Walking downstairs,46,46,0,1.0
+13,Laying,62,62,0,1.0
+13,Sitting,49,49,0,1.0
+13,Standing,57,57,0,1.0
+13,Walking,57,57,0,1.0
+13,Walking upstairs,55,55,0,1.0
+18,Laying,65,65,0,1.0
+18,Standing,73,73,0,1.0
+18,Walking,56,56,0,1.0
+18,Walking upstairs,58,58,0,1.0
+20,Laying,68,68,0,1.0
+20,Walking upstairs,51,51,0,1.0
+24,Laying,72,72,0,1.0
+24,Standing,69,69,0,1.0
+24,Walking,58,58,0,1.0
+24,Walking downstairs,55,55,0,1.0
+24,Walking upstairs,59,59,0,1.0
