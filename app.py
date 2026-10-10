@@ -1,5 +1,6 @@
-
 from pathlib import Path
+import urllib.request
+import zipfile
 
 import pandas as pd
 import streamlit as st
@@ -7,14 +8,58 @@ import matplotlib.pyplot as plt
 from joblib import load
 from sklearn.metrics import accuracy_score, f1_score
 
-ROOT = Path("data") / "UCI HAR Dataset"
-MODEL_PATH = Path("models") /"rbf_svm_grouped_best.joblib"
+DATA_DIR = Path("data")
+ROOT = DATA_DIR / "UCI HAR Dataset"
+MODEL_PATH = Path("models") / "rbf_svm_grouped_best.joblib"
 REPORT_PATH = Path("report") / "evaluation_metrics.csv"
 FIGURE_PATH = (
     Path("report")
     / "figures"
     / "logistic_regression_confusion_matrix.png"
 )
+
+DATASET_URL = (
+    "https://archive.ics.uci.edu/static/public/240/"
+    "human+activity+recognition+using+smartphones.zip"
+)
+
+
+def ensure_dataset():
+    """Download and extract UCI HAR if the test data is missing."""
+    required_file = ROOT / "test" / "X_test.txt"
+
+    if required_file.exists():
+        return
+
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    zip_path = DATA_DIR / "uci_har_dataset.zip"
+
+    try:
+        with st.spinner("Downloading the UCI HAR dataset..."):
+            urllib.request.urlretrieve(DATASET_URL, zip_path)
+
+        with st.spinner("Extracting the UCI HAR dataset..."):
+            with zipfile.ZipFile(zip_path, "r") as archive:
+                # Reject unexpected paths before extracting.
+                for member in archive.infolist():
+                    target = (DATA_DIR / member.filename).resolve()
+                    if not target.is_relative_to(DATA_DIR.resolve()):
+                        raise ValueError("Unsafe path found in dataset archive.")
+
+                archive.extractall(DATA_DIR)
+
+        if not required_file.exists():
+            raise FileNotFoundError(
+                f"Dataset extracted, but expected file is missing: {required_file}"
+            )
+
+    except Exception as exc:
+        st.error(f"Could not download or prepare the UCI HAR dataset: {exc}")
+        st.stop()
+
+    finally:
+        if zip_path.exists():
+            zip_path.unlink()
 
 ACTIVITIES = {
     1: "Walking",
@@ -142,6 +187,7 @@ if not MODEL_PATH.exists():
     st.stop()
 
 try:
+    ensure_dataset()
     X_test, y_test = load_test_data()
     model = load_model()
 except Exception as exc:
