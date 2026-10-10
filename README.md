@@ -9,6 +9,12 @@ WearSense is a software-based human activity recognition and posture-monitoring 
 The project explores how machine learning can support intelligent wearable technology, with potential applications in activity tracking, movement analysis, and posture awareness.
 
 
+## Dashboard Preview
+
+![WearSense dashboard](dashboard.png)
+
+The interactive dashboard supports activity exploration, model evaluation, prediction inspection, and classification-error analysis.
+
 
 \## Project Objectives
 
