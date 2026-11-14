@@ -34,7 +34,17 @@ dist/
 # Streamlit local configuration
 .streamlit/secrets.toml
 # Downloaded dataset (keep locally, don't upload)
-data/
+# Dataset: include only the files required by the deployed prediction API
+!data/
+data/*
+!data/UCI HAR Dataset/
+data/UCI HAR Dataset/*
+!data/UCI HAR Dataset/test/
+data/UCI HAR Dataset/test/*
+!data/UCI HAR Dataset/test/X_test.txt
+!data/UCI HAR Dataset/test/y_test.txt
+!data/UCI HAR Dataset/test/subject_test.txt
 # Detailed prediction exports
 report/best_svm/predictions.csv
-report/test_predictions.csvfrontend.zip
+report/test_predictions.csv
+frontend.zip
