@@ -1,300 +1,221 @@
-\# WearSense: AI-Powered Activity and Posture Monitoring
+# WearSense — Intelligence in Every Movement
 
+An AI-powered Human Activity Recognition (HAR) system that uses smartphone sensor data and machine learning to identify and classify human physical activities.
 
-
-WearSense is a software-based human activity recognition and posture-monitoring prototype that uses machine learning to classify movement and static postures from wearable-sensor data. It combines a trained activity-classification model with an interactive Streamlit dashboard for exploring predictions, model performance, and classification errors.
-
-
-
-The project explores how machine learning can support intelligent wearable technology, with potential applications in activity tracking, movement analysis, and posture awareness.
-
+WearSense combines a machine learning prediction pipeline with an interactive web dashboard to explore activity predictions, compare actual and predicted labels, and inspect model output.
 
 ## Dashboard Preview
 
-![WearSense dashboard](dashboard.png)
+![WearSense Dashboard Preview](docs/dashboard-preview.png)
 
-The interactive dashboard supports activity exploration, model evaluation, prediction inspection, and classification-error analysis.
+*WearSense 2.0 — Interactive activity recognition dashboard.*
 
+## Project Overview
 
-\## Project Objectives
+WearSense is built around the UCI Human Activity Recognition Using Smartphones dataset. It uses accelerometer and gyroscope-derived features to classify six human activities.
 
+The system allows users to explore dataset samples and view the activity predicted by the trained machine learning model alongside the corresponding actual activity.
 
+## Key Features
 
-\- Classify six everyday activities using sensor-derived features.
+- Human Activity Recognition using machine learning.
+- Six-class activity classification.
+- Prediction using a trained RBF Support Vector Machine model.
+- Actual-versus-predicted activity comparison.
+- Class probability visualization.
+- Dataset sample selection and navigation.
+- Interactive dashboard with an immersive interface.
+- FastAPI backend integration with a Next.js frontend.
+- Backend health monitoring.
 
-\- Compare multiple machine learning models.
+## Supported Activities
 
-\- Evaluate model performance using participant-grouped cross-validation.
+| Activity ID | Activity |
+|---|---|
+| 1 | Walking |
+| 2 | Walking Upstairs |
+| 3 | Walking Downstairs |
+| 4 | Sitting |
+| 5 | Standing |
+| 6 | Laying |
 
-\- Inspect activity-level performance and common classification errors.
+## Technology Stack
 
-\- Present predictions and evaluation results through an interactive dashboard.
+**Machine Learning and Backend**
+- Python
+- Scikit-learn
+- NumPy
+- Pandas
+- Joblib
+- FastAPI
+- Uvicorn
 
+**Frontend**
+- Next.js
+- React
+- TypeScript
+- CSS Modules
 
+## Dataset
 
-\## Activities Recognized
+**UCI Human Activity Recognition Using Smartphones**
 
+The dataset contains smartphone accelerometer and gyroscope recordings collected from participants performing different physical activities.
 
+- Six activity classes.
+- 561 engineered features per sample.
+- Original training and test partitions.
+- Subject identifiers associated with the recordings.
 
-1\. Walking
+Dataset source: [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/240/human+activity+recognition+using+smartphones)
 
-2\. Walking upstairs
+## Machine Learning Model
 
-3\. Walking downstairs
+WearSense uses a trained RBF Support Vector Machine (SVM) model for activity classification.
 
-4\. Sitting
+The model receives the engineered feature vector from a dataset sample and returns:
+- Predicted activity.
+- Predicted activity class.
+- Class probability outputs.
+- Comparison with the actual dataset label.
 
-5\. Standing
+The probability outputs should not be interpreted as calibrated certainty estimates.
 
-6\. Laying
-
-
-
-\## Dataset
-
-
-
-WearSense uses the \*\*UCI Human Activity Recognition Using Smartphones Dataset\*\*, which contains sensor recordings collected from participants performing everyday activities.
-
-
-
-The dataset provides preprocessed feature vectors derived from smartphone accelerometer and gyroscope signals. The project uses the supplied training and test partitions and participant identifiers to support model development and participant-grouped validation.
-
-
-
-Dataset source: \[UCI Machine Learning Repository — Human Activity Recognition Using Smartphones](https://archive.ics.uci.edu/dataset/240/human+activity+recognition+using+smartphones)
-
-
-
-\## Machine Learning Models
-
-
-
-The project explores the following models:
-
-
-
-\- Logistic Regression
-
-\- Random Forest
-
-\- RBF Support Vector Machine (SVM)
-
-\- Extra Trees Classifier
-
-
-
-The current preferred model candidate is an RBF SVM with `C=10` and `gamma=0.001`, selected based on participant-grouped cross-validation comparisons.
-
-
-
-\## Evaluation Results
-
-
-
-The SVM achieved the following results during five-fold participant-grouped cross-validation:
-
-
-
-| Metric | Score |
-
-|---|---:|
-
-| Accuracy | 93.00% |
-
-| Balanced accuracy | 92.96% |
-
-| Macro-F1 | 92.86% |
-
-
-
-In the development-stage evaluation on the supplied test partition, the saved grouped-CV-selected SVM achieved:
-
-
-
-| Metric | Score |
-
-|---|---:|
-
-| Accuracy | 95.32% |
-
-| Balanced accuracy | 95.16% |
-
-| Macro-F1 | 95.25% |
-
-
-
-\*\*Evaluation note:\*\* The supplied test partition has been inspected during development. Its results are therefore exploratory and should not be presented as an untouched, independent final evaluation.
-
-
-
-\## Application Features
-
-
-
-\- Activity Explorer for inspecting predictions and class probabilities.
-
-\- Model Evaluation view with performance metrics and a confusion matrix.
-
-\- Prediction inspection with actual and predicted activity labels.
-
-\- Filters for reviewing correct predictions and misclassifications.
-
-\- Activity-level and model-comparison reports.
-
-\- Feature-importance analysis and saved evaluation figures.
-
-
-
-\## Technology Stack
-
-
-
-\- Python
-
-\- pandas and NumPy
-
-\- scikit-learn
-
-\- joblib
-
-\- Streamlit
-
-\- Matplotlib
-
-
-
-\## Project Structure
-
-
+## System Architecture
 
 ```text
+UCI HAR Dataset
+       |
+       v
+Dataset Processing
+       |
+       v
+561 Engineered Features
+       |
+       v
+Trained RBF SVM Model
+       |
+       v
+FastAPI Backend
+       |
+       v
+Next.js Frontend
+       |
+       v
+Interactive WearSense Dashboard
+```
 
+## Project Structure
+
+```text
 WearSense/
-
-├── app.py
-
-├── data/
-
-│   └── UCI HAR Dataset/
-
-├── models/
-
-│   ├── logistic\_regression.joblib
-
-│   ├── random\_forest.joblib
-
-│   ├── rbf\_svm.joblib
-
-│   └── rbf\_svm\_grouped\_best.joblib
-
-├── report/
-
-│   ├── best\_svm/
-
-│   ├── figures/
-
-│   ├── svm\_vs\_extra\_trees.csv
-
-│   └── evaluation\_metrics.csv
-
-└── src/
-
-&#x20;   ├── compare\_extra\_trees.py
-
-&#x20;   ├── evaluate\_best\_svm.py
-
-&#x20;   ├── final\_evaluation.py
-
-&#x20;   ├── grouped\_validation.py
-
-&#x20;   ├── grouped\_tune\_models.py
-
-&#x20;   ├── feature\_analysis.py
-
-&#x20;   └── train\_best\_svm.py
-
+|
+|-- backend/
+|   |-- main.py
+|   |-- config.py
+|   |-- schemas/
+|   |-- services/
+|
+|-- frontend/
+|   |-- public/
+|   |-- src/
+|       |-- app/
+|           |-- dashboard/
+|               |-- page.tsx
+|               |-- dashboard.module.css
+|
+|-- docs/
+|   |-- dashboard-preview.png
+|
+|-- inspect_models.py
+|-- app_backup_before_dataset_fix.py
+|-- README.md
 ```
 
+## Getting Started
 
-
-\## Installation and Setup
-
-
-
-The project was developed using Python 3.10 in a Conda environment.
-
-
-
-Create and activate the environment:
-
-
+### 1. Clone the repository
 
 ```bash
+git clone https://github.com/AnanyaSRV/Wear-Sense.git
+cd Wear-Sense
+```
 
-conda create -n wearsense python=3.10
+### 2. Set up the Python environment
 
+Activate your existing Conda environment or create an environment with the required backend dependencies.
+
+```bash
 conda activate wearsense
-
 ```
 
+Install the backend dependencies from your project's dependency file, if provided.
 
+### 3. Start the backend
 
-Install the required packages:
-
-
+From the project root:
 
 ```bash
-
-pip install numpy pandas scikit-learn joblib streamlit matplotlib
-
+python -m uvicorn backend.main:app --reload
 ```
 
+The backend runs at:
 
+`http://127.0.0.1:8000`
 
-Run the application from the project root:
+API documentation:
 
+`http://127.0.0.1:8000/docs`
 
+### 4. Configure the frontend
+
+Create `frontend/.env.local`:
+
+```env
+NEXT_PUBLIC_WEARSENSE_API_URL=http://127.0.0.1:8000
+```
+
+### 5. Install frontend dependencies
 
 ```bash
-
-streamlit run app.py
-
+cd frontend
+npm install
 ```
 
+### 6. Start the frontend
 
+```bash
+npm run dev
+```
 
-The application should open in your browser.
+Open:
 
+`http://localhost:3000/dashboard`
 
+## Important Project Scope
 
-\## Limitations
+WearSense currently performs dataset-based human activity recognition.
 
+It uses recorded smartphone sensor data from the UCI HAR dataset. It does not currently provide live wearable sensor streaming, real-time heart-rate monitoring, step counting, or calorie measurement.
 
+The model's evaluation results should be interpreted in the context of the dataset and development process.
 
-\- The current system uses a public smartphone-sensor dataset rather than data collected from a custom smart garment.
+## Future Enhancements
 
-\- The model classifies predefined activities; it does not directly measure joint angles, diagnose posture disorders, or provide medical advice.
+- Integration with physical wearable sensors.
+- Real-time activity recognition.
+- Expanded activity datasets.
+- Personalized activity analysis.
+- Additional model evaluation and validation.
 
-\- The dashboard demonstrates a software workflow. It does not currently integrate with a physical wearable device or a live sensor stream.
+## Author
 
-\- Performance on new users and different sensor placements requires further validation.
+**Ananya SRV**
 
+GitHub: [AnanyaSRV](https://github.com/AnanyaSRV)
 
+Repository: [Wear-Sense](https://github.com/AnanyaSRV/Wear-Sense)
 
-\## Future Work
+---
 
-
-
-Potential extensions include real-time sensor-stream processing, temporal activity modelling, personalized calibration, deployment on mobile or wearable platforms, and evaluation with data collected from actual wearable devices.
-
-
-
-\## Project Status
-
-
-
-\*\*Software prototype:\*\* Core model development, grouped validation, evaluation reports, and the interactive dashboard are implemented. Documentation and final repository preparation are in progress.
-
-
-
+*WearSense — Intelligence in Every Movement.*
