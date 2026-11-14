@@ -37,4 +37,4 @@ dist/
 data/
 # Detailed prediction exports
 report/best_svm/predictions.csv
-report/test_predictions.csv
+report/test_predictions.csvfrontend.zip
